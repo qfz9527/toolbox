@@ -67,6 +67,7 @@ Name: "Git"; Description: "Git for Windows"; Types: full custom; Flags: disablen
 Source: ".\docker-quickstart-terminal.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#dockerCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "Docker"
 Source: ".\start.sh"; DestDir: "{app}"; Flags: ignoreversion; Components: "Docker"
+Source: ".\docker-start.cmd"; DestDir: "{app}"; Flags: ignoreversion; Components: "Docker"
 Source: "{#dockerMachineCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerMachine"
 Source: "{#dockerComposeCli}"; DestDir: "{app}"; Flags: ignoreversion; Components: "DockerCompose"
 Source: "{#kitematic}\*"; DestDir: "{app}\kitematic"; Flags: ignoreversion recursesubdirs; Components: "Kitematic"
@@ -83,6 +84,11 @@ Name: "{commondesktop}\Docker Quickstart Terminal"; WorkingDir: "{app}"; Filenam
 
 [UninstallRun]
 Filename: "{app}\docker-machine.exe"; Parameters: "rm -f default"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_CERT_PATH"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_HOST"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_MACHINE_NAME"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V DOCKER_TLS_VERIFY"; WorkingDir: "{sys}"
+Filename: "{sys}\reg.exe"; Parameters: "delete HKCU\Environment /F /V NO_PROXY"; WorkingDir: "{sys}"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{localappdata}\..\Roaming\Kitematic"
